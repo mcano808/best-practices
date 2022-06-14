@@ -1,5 +1,5 @@
 import {Item} from "../models/Person.model";
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export const paper: Item = {
   modelNumber: 'paper-1234',

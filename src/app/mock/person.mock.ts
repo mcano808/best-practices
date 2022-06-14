@@ -1,16 +1,16 @@
-import * as cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 import {Person} from "../models/Person.model";
 import { v4 as uuid } from 'uuid';
 
 export const personOne: Person = {
   address: "12627 Hedgetree Ct. Poway CA 96707",
-  id: uuid.uuid(),
+  id: uuid(),
   markUp: 1.24,
   name: "Jose Cano"
 }
 
 export const personTwo: Person = {
-  id: uuid.uuid(),
+  id: uuid(),
   name: 'Mike Cano',
   address: '16868 E Fair Pl, Aurora CO 80016',
   markUp: 1.12

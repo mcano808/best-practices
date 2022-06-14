@@ -1,7 +1,8 @@
-import {Order, OrderLine} from "../models/Person.model";
+import {FullOrder, Order, OrderLine} from "../models/Person.model";
 import {v4 as uuid } from 'uuid';
 import {personOne, personTwo} from "./person.mock";
-import * as cloneDeep from "lodash-es/cloneDeep";
+import cloneDeep from "lodash-es/cloneDeep";
+import {paper, pen, pencil} from "./item.mock";
 
 export const orderOneLineOne: OrderLine = {
   modelNumber: 'pencil-1234',
@@ -25,7 +26,7 @@ export const orderOne: Order = {
     orderOneLineTwo,
     orderOneLineThree
   ],
-  orderNumber: uuid.uuid(),
+  orderNumber: uuid(),
   customerNumber: personOne.id
 }
 
@@ -39,7 +40,7 @@ export const orderTwo: Order = {
     orderTwoLineOne
   ]  ,
   customerNumber: personTwo.id,
-  orderNumber: uuid.uuid()
+  orderNumber: uuid()
 }
 
 export const orders: Order[] = [
@@ -53,4 +54,48 @@ export function getOrder(position: number): Order {
   }
 
   return cloneDeep(orders[position]);
+}
+
+export function getMockOrders(): Order[] {
+  return cloneDeep(orders);
+}
+
+export const actualFullOrders: FullOrder[] = [
+  {
+    orderNumber: orderOne.orderNumber,
+    customer: personOne,
+    orderLines: [
+      {
+        quantity: orderOneLineOne.quantity,
+        item: cloneDeep(pencil)
+      }, {
+      quantity: orderOneLineTwo.quantity,
+        item: cloneDeep(paper)
+      }, {
+      quantity: orderOneLineThree.quantity,
+        item: cloneDeep(pen)
+      }
+    ]
+  },  {
+    orderNumber: orderTwo.orderNumber,
+    customer: personTwo,
+    orderLines: [
+      {
+        quantity: orderTwoLineOne.quantity,
+        item: cloneDeep(pen)
+      }
+    ]
+  }
+];
+
+export function getActualFullOrder(positions: number): FullOrder {
+  if(positions > actualFullOrders.length - 1) {
+    positions = 0;
+  }
+
+  return cloneDeep(actualFullOrders[positions]);
+}
+
+export function getActualFullOrders(): FullOrder[] {
+  return cloneDeep(actualFullOrders);
 }

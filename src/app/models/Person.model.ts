@@ -21,3 +21,15 @@ export interface OrderLine {
   modelNumber: string;
   quantity: number;
 }
+
+export interface FullOrderLine {
+  item: Item;
+  quantity: number;
+}
+
+
+export interface FullOrder {
+  orderNumber: string;
+  orderLines: FullOrderLine[];
+  customer: Person;
+}
