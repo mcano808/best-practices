@@ -1,6 +1,7 @@
 import {Item, Order, Person} from "../../models/Person.model";
 import {createEntityAdapter, EntityAdapter, EntityState} from "@ngrx/entity";
 
+
 export interface AppState {
   customers: Person[];
   items: ItemState;
