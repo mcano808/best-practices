@@ -14,6 +14,7 @@ export interface Item {
 export interface Order {
   orderNumber: string;
   orderLines: OrderLine[];
+  customerNumber: string;
 }
 
 export interface OrderLine {
