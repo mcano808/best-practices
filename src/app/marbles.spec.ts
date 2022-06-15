@@ -44,20 +44,22 @@ describe('concatMap', () => {
     customers = getMockPeople();
   })
   it('should Combine latest and merge data into a full order', () => {
-    const orders$ = cold(     '-a|', {a: orders});
-    const items$ = cold(      '-a|', {a: makeItemsStateFromItems(items)});
-    const customers$ = cold(  '-a|', {a: makeCustomerStateFromCustomers(customers)});
-    const expected = cold(    '-a|', {a: getActualFullOrders()});
+    const orders$ = cold(     'a|', {a: orders});
+    const items$ = cold(      'a|', {a: makeItemsStateFromItems(items)});
+    const customers$ = cold(  'a|', {a: makeCustomerStateFromCustomers(customers)});
+    const expected = cold(    'a-|', {a: getActualFullOrders()});
 
     const result = combineLatest(orders$, items$, customers$).pipe(
+      filter(([orders, items, customers]) => !!orders && !!items && !!customers),
       switchMap( ([orders, items, customers]) => {
         let results: FullOrder[] = [];
         orders.forEach( (order: Order) => {
           results.push(fillOutOrder(order, items, customers))
         });
-        return results.reverse();
+        return results;
       })
     )
+    // Error we are seeing here is that I get a single object where I am expecting and array of orders
     expect(result).toBeObservable(expected);
   })
 })
